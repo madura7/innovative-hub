@@ -62,6 +62,17 @@ class Validator {
     return null;
   }
 
+  String validatePassword(String value) {
+    var pattern = r'(^[0-9]*$)';
+    var regExp = new RegExp(pattern);
+    if (value.isEmpty) {
+      return "Password is Required";
+    } else if (value.length <= 7) {
+      return "Password length should be greater than 7";
+    } 
+    return null;
+  }
+
   String passwordDoNotMatch(String value, String confirmValue) {
     var pattern = r'(^[0-9]*$)';
     var regExp = new RegExp(pattern);

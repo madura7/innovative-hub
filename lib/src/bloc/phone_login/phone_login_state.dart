@@ -13,4 +13,6 @@ abstract class PhoneLoginState with _$PhoneLoginState {
   const factory PhoneLoginState.phoneLoading() = PhoneLoading;
 
   const factory PhoneLoginState.showError(String error) = ShowError;
+
+  const factory PhoneLoginState.loginSuccessFull() = LoginSuccessFull;
 }

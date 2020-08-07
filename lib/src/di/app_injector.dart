@@ -1,3 +1,4 @@
+import 'package:fluttercommerce/src/bloc/add_user/add_user.dart';
 import 'package:get_it/get_it.dart';
 import 'package:fluttercommerce/src/bloc/add_account_details/add_account_details.dart';
 import 'package:fluttercommerce/src/bloc/add_address/add_address.dart';
@@ -49,6 +50,7 @@ class AppInjector {
   static _initCubits() {
     _injector.registerFactory(() => PhoneLoginCubit());
     _injector.registerFactory(() => OtpLoginCubit());
+    _injector.registerFactory(() => AddUserCubit());
 
     _injector.registerFactory(() => ProductDataCubit(),
         instanceName: dealOfTheDay);

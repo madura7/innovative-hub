@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named
 
-part of 'phone_login_state.dart';
+part of 'add_user_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -9,8 +9,8 @@ part of 'phone_login_state.dart';
 
 T _$identity<T>(T value) => value;
 
-class _$PhoneLoginStateTearOff {
-  const _$PhoneLoginStateTearOff();
+class _$AddUserStateTearOff {
+  const _$AddUserStateTearOff();
 
   Idle idle() {
     return const Idle();
@@ -34,15 +34,15 @@ class _$PhoneLoginStateTearOff {
     );
   }
 
-  LoginSuccessFull loginSuccessFull() {
-    return const LoginSuccessFull();
+  RegisterSuccessfully registerSuccessfully() {
+    return const RegisterSuccessfully();
   }
 }
 
 // ignore: unused_element
-const $PhoneLoginState = _$PhoneLoginStateTearOff();
+const $AddUserState = _$AddUserStateTearOff();
 
-mixin _$PhoneLoginState {
+mixin _$AddUserState {
   @optionalTypeArgs
   Result when<Result extends Object>({
     @required Result idle(),
@@ -50,7 +50,7 @@ mixin _$PhoneLoginState {
     @required Result onButtonDisabled(),
     @required Result phoneLoading(),
     @required Result showError(String error),
-    @required Result loginSuccessFull(),
+    @required Result registerSuccessfully(),
   });
   @optionalTypeArgs
   Result maybeWhen<Result extends Object>({
@@ -59,7 +59,7 @@ mixin _$PhoneLoginState {
     Result onButtonDisabled(),
     Result phoneLoading(),
     Result showError(String error),
-    Result loginSuccessFull(),
+    Result registerSuccessfully(),
     @required Result orElse(),
   });
   @optionalTypeArgs
@@ -69,7 +69,7 @@ mixin _$PhoneLoginState {
     @required Result onButtonDisabled(ButtonDisabled value),
     @required Result phoneLoading(PhoneLoading value),
     @required Result showError(ShowError value),
-    @required Result loginSuccessFull(LoginSuccessFull value),
+    @required Result registerSuccessfully(RegisterSuccessfully value),
   });
   @optionalTypeArgs
   Result maybeMap<Result extends Object>({
@@ -78,24 +78,23 @@ mixin _$PhoneLoginState {
     Result onButtonDisabled(ButtonDisabled value),
     Result phoneLoading(PhoneLoading value),
     Result showError(ShowError value),
-    Result loginSuccessFull(LoginSuccessFull value),
+    Result registerSuccessfully(RegisterSuccessfully value),
     @required Result orElse(),
   });
 }
 
-abstract class $PhoneLoginStateCopyWith<$Res> {
-  factory $PhoneLoginStateCopyWith(
-          PhoneLoginState value, $Res Function(PhoneLoginState) then) =
-      _$PhoneLoginStateCopyWithImpl<$Res>;
+abstract class $AddUserStateCopyWith<$Res> {
+  factory $AddUserStateCopyWith(
+          AddUserState value, $Res Function(AddUserState) then) =
+      _$AddUserStateCopyWithImpl<$Res>;
 }
 
-class _$PhoneLoginStateCopyWithImpl<$Res>
-    implements $PhoneLoginStateCopyWith<$Res> {
-  _$PhoneLoginStateCopyWithImpl(this._value, this._then);
+class _$AddUserStateCopyWithImpl<$Res> implements $AddUserStateCopyWith<$Res> {
+  _$AddUserStateCopyWithImpl(this._value, this._then);
 
-  final PhoneLoginState _value;
+  final AddUserState _value;
   // ignore: unused_field
-  final $Res Function(PhoneLoginState) _then;
+  final $Res Function(AddUserState) _then;
 }
 
 abstract class $IdleCopyWith<$Res> {
@@ -103,7 +102,7 @@ abstract class $IdleCopyWith<$Res> {
       _$IdleCopyWithImpl<$Res>;
 }
 
-class _$IdleCopyWithImpl<$Res> extends _$PhoneLoginStateCopyWithImpl<$Res>
+class _$IdleCopyWithImpl<$Res> extends _$AddUserStateCopyWithImpl<$Res>
     implements $IdleCopyWith<$Res> {
   _$IdleCopyWithImpl(Idle _value, $Res Function(Idle) _then)
       : super(_value, (v) => _then(v as Idle));
@@ -117,7 +116,7 @@ class _$Idle implements Idle {
 
   @override
   String toString() {
-    return 'PhoneLoginState.idle()';
+    return 'AddUserState.idle()';
   }
 
   @override
@@ -136,14 +135,14 @@ class _$Idle implements Idle {
     @required Result onButtonDisabled(),
     @required Result phoneLoading(),
     @required Result showError(String error),
-    @required Result loginSuccessFull(),
+    @required Result registerSuccessfully(),
   }) {
     assert(idle != null);
     assert(onButtonEnabled != null);
     assert(onButtonDisabled != null);
     assert(phoneLoading != null);
     assert(showError != null);
-    assert(loginSuccessFull != null);
+    assert(registerSuccessfully != null);
     return idle();
   }
 
@@ -155,7 +154,7 @@ class _$Idle implements Idle {
     Result onButtonDisabled(),
     Result phoneLoading(),
     Result showError(String error),
-    Result loginSuccessFull(),
+    Result registerSuccessfully(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -173,14 +172,14 @@ class _$Idle implements Idle {
     @required Result onButtonDisabled(ButtonDisabled value),
     @required Result phoneLoading(PhoneLoading value),
     @required Result showError(ShowError value),
-    @required Result loginSuccessFull(LoginSuccessFull value),
+    @required Result registerSuccessfully(RegisterSuccessfully value),
   }) {
     assert(idle != null);
     assert(onButtonEnabled != null);
     assert(onButtonDisabled != null);
     assert(phoneLoading != null);
     assert(showError != null);
-    assert(loginSuccessFull != null);
+    assert(registerSuccessfully != null);
     return idle(this);
   }
 
@@ -192,7 +191,7 @@ class _$Idle implements Idle {
     Result onButtonDisabled(ButtonDisabled value),
     Result phoneLoading(PhoneLoading value),
     Result showError(ShowError value),
-    Result loginSuccessFull(LoginSuccessFull value),
+    Result registerSuccessfully(RegisterSuccessfully value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -203,7 +202,7 @@ class _$Idle implements Idle {
   }
 }
 
-abstract class Idle implements PhoneLoginState {
+abstract class Idle implements AddUserState {
   const factory Idle() = _$Idle;
 }
 
@@ -213,8 +212,7 @@ abstract class $ButtonEnabledCopyWith<$Res> {
       _$ButtonEnabledCopyWithImpl<$Res>;
 }
 
-class _$ButtonEnabledCopyWithImpl<$Res>
-    extends _$PhoneLoginStateCopyWithImpl<$Res>
+class _$ButtonEnabledCopyWithImpl<$Res> extends _$AddUserStateCopyWithImpl<$Res>
     implements $ButtonEnabledCopyWith<$Res> {
   _$ButtonEnabledCopyWithImpl(
       ButtonEnabled _value, $Res Function(ButtonEnabled) _then)
@@ -229,7 +227,7 @@ class _$ButtonEnabled implements ButtonEnabled {
 
   @override
   String toString() {
-    return 'PhoneLoginState.onButtonEnabled()';
+    return 'AddUserState.onButtonEnabled()';
   }
 
   @override
@@ -248,14 +246,14 @@ class _$ButtonEnabled implements ButtonEnabled {
     @required Result onButtonDisabled(),
     @required Result phoneLoading(),
     @required Result showError(String error),
-    @required Result loginSuccessFull(),
+    @required Result registerSuccessfully(),
   }) {
     assert(idle != null);
     assert(onButtonEnabled != null);
     assert(onButtonDisabled != null);
     assert(phoneLoading != null);
     assert(showError != null);
-    assert(loginSuccessFull != null);
+    assert(registerSuccessfully != null);
     return onButtonEnabled();
   }
 
@@ -267,7 +265,7 @@ class _$ButtonEnabled implements ButtonEnabled {
     Result onButtonDisabled(),
     Result phoneLoading(),
     Result showError(String error),
-    Result loginSuccessFull(),
+    Result registerSuccessfully(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -285,14 +283,14 @@ class _$ButtonEnabled implements ButtonEnabled {
     @required Result onButtonDisabled(ButtonDisabled value),
     @required Result phoneLoading(PhoneLoading value),
     @required Result showError(ShowError value),
-    @required Result loginSuccessFull(LoginSuccessFull value),
+    @required Result registerSuccessfully(RegisterSuccessfully value),
   }) {
     assert(idle != null);
     assert(onButtonEnabled != null);
     assert(onButtonDisabled != null);
     assert(phoneLoading != null);
     assert(showError != null);
-    assert(loginSuccessFull != null);
+    assert(registerSuccessfully != null);
     return onButtonEnabled(this);
   }
 
@@ -304,7 +302,7 @@ class _$ButtonEnabled implements ButtonEnabled {
     Result onButtonDisabled(ButtonDisabled value),
     Result phoneLoading(PhoneLoading value),
     Result showError(ShowError value),
-    Result loginSuccessFull(LoginSuccessFull value),
+    Result registerSuccessfully(RegisterSuccessfully value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -315,7 +313,7 @@ class _$ButtonEnabled implements ButtonEnabled {
   }
 }
 
-abstract class ButtonEnabled implements PhoneLoginState {
+abstract class ButtonEnabled implements AddUserState {
   const factory ButtonEnabled() = _$ButtonEnabled;
 }
 
@@ -326,7 +324,7 @@ abstract class $ButtonDisabledCopyWith<$Res> {
 }
 
 class _$ButtonDisabledCopyWithImpl<$Res>
-    extends _$PhoneLoginStateCopyWithImpl<$Res>
+    extends _$AddUserStateCopyWithImpl<$Res>
     implements $ButtonDisabledCopyWith<$Res> {
   _$ButtonDisabledCopyWithImpl(
       ButtonDisabled _value, $Res Function(ButtonDisabled) _then)
@@ -341,7 +339,7 @@ class _$ButtonDisabled implements ButtonDisabled {
 
   @override
   String toString() {
-    return 'PhoneLoginState.onButtonDisabled()';
+    return 'AddUserState.onButtonDisabled()';
   }
 
   @override
@@ -360,14 +358,14 @@ class _$ButtonDisabled implements ButtonDisabled {
     @required Result onButtonDisabled(),
     @required Result phoneLoading(),
     @required Result showError(String error),
-    @required Result loginSuccessFull(),
+    @required Result registerSuccessfully(),
   }) {
     assert(idle != null);
     assert(onButtonEnabled != null);
     assert(onButtonDisabled != null);
     assert(phoneLoading != null);
     assert(showError != null);
-    assert(loginSuccessFull != null);
+    assert(registerSuccessfully != null);
     return onButtonDisabled();
   }
 
@@ -379,7 +377,7 @@ class _$ButtonDisabled implements ButtonDisabled {
     Result onButtonDisabled(),
     Result phoneLoading(),
     Result showError(String error),
-    Result loginSuccessFull(),
+    Result registerSuccessfully(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -397,14 +395,14 @@ class _$ButtonDisabled implements ButtonDisabled {
     @required Result onButtonDisabled(ButtonDisabled value),
     @required Result phoneLoading(PhoneLoading value),
     @required Result showError(ShowError value),
-    @required Result loginSuccessFull(LoginSuccessFull value),
+    @required Result registerSuccessfully(RegisterSuccessfully value),
   }) {
     assert(idle != null);
     assert(onButtonEnabled != null);
     assert(onButtonDisabled != null);
     assert(phoneLoading != null);
     assert(showError != null);
-    assert(loginSuccessFull != null);
+    assert(registerSuccessfully != null);
     return onButtonDisabled(this);
   }
 
@@ -416,7 +414,7 @@ class _$ButtonDisabled implements ButtonDisabled {
     Result onButtonDisabled(ButtonDisabled value),
     Result phoneLoading(PhoneLoading value),
     Result showError(ShowError value),
-    Result loginSuccessFull(LoginSuccessFull value),
+    Result registerSuccessfully(RegisterSuccessfully value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -427,7 +425,7 @@ class _$ButtonDisabled implements ButtonDisabled {
   }
 }
 
-abstract class ButtonDisabled implements PhoneLoginState {
+abstract class ButtonDisabled implements AddUserState {
   const factory ButtonDisabled() = _$ButtonDisabled;
 }
 
@@ -437,8 +435,7 @@ abstract class $PhoneLoadingCopyWith<$Res> {
       _$PhoneLoadingCopyWithImpl<$Res>;
 }
 
-class _$PhoneLoadingCopyWithImpl<$Res>
-    extends _$PhoneLoginStateCopyWithImpl<$Res>
+class _$PhoneLoadingCopyWithImpl<$Res> extends _$AddUserStateCopyWithImpl<$Res>
     implements $PhoneLoadingCopyWith<$Res> {
   _$PhoneLoadingCopyWithImpl(
       PhoneLoading _value, $Res Function(PhoneLoading) _then)
@@ -453,7 +450,7 @@ class _$PhoneLoading implements PhoneLoading {
 
   @override
   String toString() {
-    return 'PhoneLoginState.phoneLoading()';
+    return 'AddUserState.phoneLoading()';
   }
 
   @override
@@ -472,14 +469,14 @@ class _$PhoneLoading implements PhoneLoading {
     @required Result onButtonDisabled(),
     @required Result phoneLoading(),
     @required Result showError(String error),
-    @required Result loginSuccessFull(),
+    @required Result registerSuccessfully(),
   }) {
     assert(idle != null);
     assert(onButtonEnabled != null);
     assert(onButtonDisabled != null);
     assert(phoneLoading != null);
     assert(showError != null);
-    assert(loginSuccessFull != null);
+    assert(registerSuccessfully != null);
     return phoneLoading();
   }
 
@@ -491,7 +488,7 @@ class _$PhoneLoading implements PhoneLoading {
     Result onButtonDisabled(),
     Result phoneLoading(),
     Result showError(String error),
-    Result loginSuccessFull(),
+    Result registerSuccessfully(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -509,14 +506,14 @@ class _$PhoneLoading implements PhoneLoading {
     @required Result onButtonDisabled(ButtonDisabled value),
     @required Result phoneLoading(PhoneLoading value),
     @required Result showError(ShowError value),
-    @required Result loginSuccessFull(LoginSuccessFull value),
+    @required Result registerSuccessfully(RegisterSuccessfully value),
   }) {
     assert(idle != null);
     assert(onButtonEnabled != null);
     assert(onButtonDisabled != null);
     assert(phoneLoading != null);
     assert(showError != null);
-    assert(loginSuccessFull != null);
+    assert(registerSuccessfully != null);
     return phoneLoading(this);
   }
 
@@ -528,7 +525,7 @@ class _$PhoneLoading implements PhoneLoading {
     Result onButtonDisabled(ButtonDisabled value),
     Result phoneLoading(PhoneLoading value),
     Result showError(ShowError value),
-    Result loginSuccessFull(LoginSuccessFull value),
+    Result registerSuccessfully(RegisterSuccessfully value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -539,7 +536,7 @@ class _$PhoneLoading implements PhoneLoading {
   }
 }
 
-abstract class PhoneLoading implements PhoneLoginState {
+abstract class PhoneLoading implements AddUserState {
   const factory PhoneLoading() = _$PhoneLoading;
 }
 
@@ -549,7 +546,7 @@ abstract class $ShowErrorCopyWith<$Res> {
   $Res call({String error});
 }
 
-class _$ShowErrorCopyWithImpl<$Res> extends _$PhoneLoginStateCopyWithImpl<$Res>
+class _$ShowErrorCopyWithImpl<$Res> extends _$AddUserStateCopyWithImpl<$Res>
     implements $ShowErrorCopyWith<$Res> {
   _$ShowErrorCopyWithImpl(ShowError _value, $Res Function(ShowError) _then)
       : super(_value, (v) => _then(v as ShowError));
@@ -575,7 +572,7 @@ class _$ShowError implements ShowError {
 
   @override
   String toString() {
-    return 'PhoneLoginState.showError(error: $error)';
+    return 'AddUserState.showError(error: $error)';
   }
 
   @override
@@ -602,14 +599,14 @@ class _$ShowError implements ShowError {
     @required Result onButtonDisabled(),
     @required Result phoneLoading(),
     @required Result showError(String error),
-    @required Result loginSuccessFull(),
+    @required Result registerSuccessfully(),
   }) {
     assert(idle != null);
     assert(onButtonEnabled != null);
     assert(onButtonDisabled != null);
     assert(phoneLoading != null);
     assert(showError != null);
-    assert(loginSuccessFull != null);
+    assert(registerSuccessfully != null);
     return showError(error);
   }
 
@@ -621,7 +618,7 @@ class _$ShowError implements ShowError {
     Result onButtonDisabled(),
     Result phoneLoading(),
     Result showError(String error),
-    Result loginSuccessFull(),
+    Result registerSuccessfully(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -639,14 +636,14 @@ class _$ShowError implements ShowError {
     @required Result onButtonDisabled(ButtonDisabled value),
     @required Result phoneLoading(PhoneLoading value),
     @required Result showError(ShowError value),
-    @required Result loginSuccessFull(LoginSuccessFull value),
+    @required Result registerSuccessfully(RegisterSuccessfully value),
   }) {
     assert(idle != null);
     assert(onButtonEnabled != null);
     assert(onButtonDisabled != null);
     assert(phoneLoading != null);
     assert(showError != null);
-    assert(loginSuccessFull != null);
+    assert(registerSuccessfully != null);
     return showError(this);
   }
 
@@ -658,7 +655,7 @@ class _$ShowError implements ShowError {
     Result onButtonDisabled(ButtonDisabled value),
     Result phoneLoading(PhoneLoading value),
     Result showError(ShowError value),
-    Result loginSuccessFull(LoginSuccessFull value),
+    Result registerSuccessfully(RegisterSuccessfully value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
@@ -669,41 +666,41 @@ class _$ShowError implements ShowError {
   }
 }
 
-abstract class ShowError implements PhoneLoginState {
+abstract class ShowError implements AddUserState {
   const factory ShowError(String error) = _$ShowError;
 
   String get error;
   $ShowErrorCopyWith<ShowError> get copyWith;
 }
 
-abstract class $LoginSuccessFullCopyWith<$Res> {
-  factory $LoginSuccessFullCopyWith(
-          LoginSuccessFull value, $Res Function(LoginSuccessFull) then) =
-      _$LoginSuccessFullCopyWithImpl<$Res>;
+abstract class $RegisterSuccessfullyCopyWith<$Res> {
+  factory $RegisterSuccessfullyCopyWith(RegisterSuccessfully value,
+          $Res Function(RegisterSuccessfully) then) =
+      _$RegisterSuccessfullyCopyWithImpl<$Res>;
 }
 
-class _$LoginSuccessFullCopyWithImpl<$Res>
-    extends _$PhoneLoginStateCopyWithImpl<$Res>
-    implements $LoginSuccessFullCopyWith<$Res> {
-  _$LoginSuccessFullCopyWithImpl(
-      LoginSuccessFull _value, $Res Function(LoginSuccessFull) _then)
-      : super(_value, (v) => _then(v as LoginSuccessFull));
+class _$RegisterSuccessfullyCopyWithImpl<$Res>
+    extends _$AddUserStateCopyWithImpl<$Res>
+    implements $RegisterSuccessfullyCopyWith<$Res> {
+  _$RegisterSuccessfullyCopyWithImpl(
+      RegisterSuccessfully _value, $Res Function(RegisterSuccessfully) _then)
+      : super(_value, (v) => _then(v as RegisterSuccessfully));
 
   @override
-  LoginSuccessFull get _value => super._value as LoginSuccessFull;
+  RegisterSuccessfully get _value => super._value as RegisterSuccessfully;
 }
 
-class _$LoginSuccessFull implements LoginSuccessFull {
-  const _$LoginSuccessFull();
+class _$RegisterSuccessfully implements RegisterSuccessfully {
+  const _$RegisterSuccessfully();
 
   @override
   String toString() {
-    return 'PhoneLoginState.loginSuccessFull()';
+    return 'AddUserState.registerSuccessfully()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is LoginSuccessFull);
+    return identical(this, other) || (other is RegisterSuccessfully);
   }
 
   @override
@@ -717,15 +714,15 @@ class _$LoginSuccessFull implements LoginSuccessFull {
     @required Result onButtonDisabled(),
     @required Result phoneLoading(),
     @required Result showError(String error),
-    @required Result loginSuccessFull(),
+    @required Result registerSuccessfully(),
   }) {
     assert(idle != null);
     assert(onButtonEnabled != null);
     assert(onButtonDisabled != null);
     assert(phoneLoading != null);
     assert(showError != null);
-    assert(loginSuccessFull != null);
-    return loginSuccessFull();
+    assert(registerSuccessfully != null);
+    return registerSuccessfully();
   }
 
   @override
@@ -736,12 +733,12 @@ class _$LoginSuccessFull implements LoginSuccessFull {
     Result onButtonDisabled(),
     Result phoneLoading(),
     Result showError(String error),
-    Result loginSuccessFull(),
+    Result registerSuccessfully(),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (loginSuccessFull != null) {
-      return loginSuccessFull();
+    if (registerSuccessfully != null) {
+      return registerSuccessfully();
     }
     return orElse();
   }
@@ -754,15 +751,15 @@ class _$LoginSuccessFull implements LoginSuccessFull {
     @required Result onButtonDisabled(ButtonDisabled value),
     @required Result phoneLoading(PhoneLoading value),
     @required Result showError(ShowError value),
-    @required Result loginSuccessFull(LoginSuccessFull value),
+    @required Result registerSuccessfully(RegisterSuccessfully value),
   }) {
     assert(idle != null);
     assert(onButtonEnabled != null);
     assert(onButtonDisabled != null);
     assert(phoneLoading != null);
     assert(showError != null);
-    assert(loginSuccessFull != null);
-    return loginSuccessFull(this);
+    assert(registerSuccessfully != null);
+    return registerSuccessfully(this);
   }
 
   @override
@@ -773,17 +770,17 @@ class _$LoginSuccessFull implements LoginSuccessFull {
     Result onButtonDisabled(ButtonDisabled value),
     Result phoneLoading(PhoneLoading value),
     Result showError(ShowError value),
-    Result loginSuccessFull(LoginSuccessFull value),
+    Result registerSuccessfully(RegisterSuccessfully value),
     @required Result orElse(),
   }) {
     assert(orElse != null);
-    if (loginSuccessFull != null) {
-      return loginSuccessFull(this);
+    if (registerSuccessfully != null) {
+      return registerSuccessfully(this);
     }
     return orElse();
   }
 }
 
-abstract class LoginSuccessFull implements PhoneLoginState {
-  const factory LoginSuccessFull() = _$LoginSuccessFull;
+abstract class RegisterSuccessfully implements AddUserState {
+  const factory RegisterSuccessfully() = _$RegisterSuccessfully;
 }

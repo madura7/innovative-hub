@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route_annotations.dart';
 import 'package:fluttercommerce/src/ui/screens/SearchScreen.dart';
 import 'package:fluttercommerce/src/ui/screens/add_address_screen.dart';
+import 'package:fluttercommerce/src/ui/screens/add_user.dart';
 import 'package:fluttercommerce/src/ui/screens/add_user_detail_screen.dart';
 import 'package:fluttercommerce/src/ui/screens/all_product_list_screen.dart';
 import 'package:fluttercommerce/src/ui/screens/cart_screen.dart';
@@ -39,4 +40,5 @@ class $Router {
   MyAddressScreen myAddressScreen;
   AddAddressScreen addAddressScreen;
   MyOrdersScreen myOrdersScreen;
+  AddUserScreen addUserScreen;
 }

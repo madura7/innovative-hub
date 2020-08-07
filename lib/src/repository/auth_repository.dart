@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,7 @@ import 'package:fluttercommerce/src/notifiers/account_provider.dart';
 class AuthRepository {
   var firebaseAuth = FirebaseAuth.instance;
   var accountProvider = AppInjector.get<AccountProvider>();
+  final databaseReference = Firestore.instance;
 
   Future<bool> sendCode(
     String phoneNumber, {
@@ -41,9 +43,6 @@ class AuthRepository {
     (await getCurrentUser()).updateProfile(updateInfo).then((value) async {
       accountProvider.firebaseUser = await getCurrentUser();
     });
-//    accountProvider.firebaseUser = await getCurrentUser();
-//    accountProvider.firebaseUser = await getCurrentUser();
-//    print(accountProvider.firebaseUser.displayName);
   }
 
   Future<String> getUid() async {
@@ -75,4 +74,34 @@ class AuthRepository {
       return false;
     }
   }
+
+  Future signUpWithEmail(String email, String password) async {
+    try {
+      print(email + " - " + password);
+      await firebaseAuth
+          .createUserWithEmailAndPassword(email: email, password: password)
+          .then((data) {
+        print(data.user.uid);
+        //createRecord(data.user.uid, '', email, password);
+      }).catchError((onError) {
+        if (onError is PlatformException) {
+          if (onError.code == 'ERROR_EMAIL_ALREADY_IN_USE') {
+            print("ERROR_INVALID_EMAIL");
+          }
+          if (onError.code == 'ERROR_INVALID_EMAIL') {
+            print("ERROR_INVALID_EMAIL");
+          }
+          if (onError.code == 'ERROR_WEAK_PASSWORD') {
+            print("ERROR_WEAK_PASSWORD");
+          }
+        }
+      });
+
+      return 1; //authResult.user != null;
+    } catch (e) {
+      print(e.message);
+      return e.message;
+    }
+  }
+
 }

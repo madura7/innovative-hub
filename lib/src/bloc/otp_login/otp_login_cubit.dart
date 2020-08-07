@@ -35,7 +35,6 @@ class OtpLoginCubit extends Cubit<OtpLoginState> {
       _verificationId = verificationId;
       emit(OtpLoginState.showError(""));
     }, verificationFailed: (AuthException authException) {
-//          emit(OtpLoginState.showError(FirebaseErrors.checkAuthError(authException.message)));
       emit(OtpLoginState.showError(authException.message));
     }, verificationCompleted: (AuthCredential auth) {
       emit(OtpLoginState.autoFetchOtp("******"));

@@ -52,6 +52,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   }
 
   void listenToAccountDetails() async {
+    print("listenToAccountDetails");
 //    accountProvider.firebaseUser = await authRepo.getCurrentUser();
     firebaseRepo.streamUserDetails(await authRepo.getUid()).listen((event) {
       AccountDetails accountDetails = AccountDetails.fromDocument(event);

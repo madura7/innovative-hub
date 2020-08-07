@@ -24,6 +24,7 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
   var addAddressCubit = AppInjector.get<AddAccountDetailsCubit>();
 
   TextEditingController nameEditingController = TextEditingController();
+  TextEditingController phoneNumberEditingController = TextEditingController();
   FocusNode nameFocusNode = FocusNode();
   FocusNode phoneFocusNode = FocusNode();
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
@@ -36,8 +37,13 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
       addAddressCubit.loadPreviousData();
     }
     nameEditingController.addListener(() {
-      addAddressCubit.validateButton(nameEditingController.text);
+      addAddressCubit.validateButton(nameEditingController.text, phoneNumberEditingController.text);
     });
+    phoneNumberEditingController.addListener(() {
+      addAddressCubit.validateButton(nameEditingController.text, phoneNumberEditingController.text);
+    });
+
+
   }
 
   @override
@@ -111,6 +117,21 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
               SizedBox(
                 height: 20,
               ),
+                            CustomTextField(
+                hint: "Enter Phone Number",
+                textEditingController: phoneNumberEditingController,
+                focusNode: phoneFocusNode,
+                validator: validator.validateMobile,
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                onSubmitted: (val) {
+                //  FocusScope.of(context).requestFocus(phoneFocusNode);
+                },
+                // containerHeight: 50,
+              ),
+              SizedBox(
+                height: 20,
+              ),
               CommonButton(
                 title: widget.newAddress ? "Add" : "Edit",
                 titleColor: AppColors.white,
@@ -141,7 +162,7 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
 
   void onButtonTap() {
     if (_formKey.currentState.validate()) {
-      addAddressCubit.saveData(nameEditingController.text,
+      addAddressCubit.saveData(nameEditingController.text, phoneNumberEditingController.text,
           isEdit: widget.newAddress);
     }
   }

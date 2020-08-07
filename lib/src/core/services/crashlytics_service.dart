@@ -5,9 +5,17 @@ import 'package:fluttercommerce/src/di/app_injector.dart';
 import 'package:fluttercommerce/src/repository/auth_repository.dart';
 
 class CrashlyticsService {
-  static recordFlutterError(FlutterErrorDetails details) {
-    Crashlytics.instance.recordFlutterError(details);
+  static recordFlutterError(FlutterErrorDetails details) 
+  {
+    try{
+      Crashlytics.instance.recordFlutterError(details);
     fullDeviceLog();
+    }catch(e){
+      print(e);
+    }finally{
+      print("Finally");
+    }
+    
   }
 
   static recordError(dynamic exception, StackTrace stack, {dynamic context}) {

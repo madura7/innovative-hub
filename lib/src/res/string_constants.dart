@@ -4,7 +4,11 @@ class StringsConstants {
   static const phoneLoginText =
       "Enter your number to log in or create an account";
   static const continueText = "Continue";
+  static const registerText = "Register";
   static const mobileNumber = "Mobile Number";
+  static const email = "Email";
+  static const password = "Password";
+  static const confirmPassword = "Confirm Password";
   static const skip = "Skip";
   static const goBack = "< Go Back";
   static const changeNumber = "Change Number?";
