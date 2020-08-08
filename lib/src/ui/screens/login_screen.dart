@@ -213,7 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void onButtonRegisterTap() {
     Navigator.of(context)
         .pushNamed(Router.addUserScreen,
-            arguments: (phoneNumberController.text))
+            arguments: (phoneNumberController.text.trim()))
         .then((value) {
       if (value != null && value) {
         phoneNumberController.clear();

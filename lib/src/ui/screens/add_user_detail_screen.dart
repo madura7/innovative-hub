@@ -25,10 +25,13 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
 
   TextEditingController nameEditingController = TextEditingController();
   TextEditingController phoneNumberEditingController = TextEditingController();
+  TextEditingController userRoleEditingController = TextEditingController();
   FocusNode nameFocusNode = FocusNode();
   FocusNode phoneFocusNode = FocusNode();
+  FocusNode userRoleFocusNode = FocusNode();
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   Validator validator = Validator();
+  String roleValue = 'Admin';
 
   @override
   void initState() {
@@ -37,13 +40,14 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
       addAddressCubit.loadPreviousData();
     }
     nameEditingController.addListener(() {
-      addAddressCubit.validateButton(nameEditingController.text, phoneNumberEditingController.text);
+      addAddressCubit.validateButton(
+          nameEditingController.text, phoneNumberEditingController.text);
     });
     phoneNumberEditingController.addListener(() {
-      addAddressCubit.validateButton(nameEditingController.text, phoneNumberEditingController.text);
+      addAddressCubit.validateButton(
+          nameEditingController.text, phoneNumberEditingController.text);
     });
-
-
+    userRoleEditingController.text = "Admin";
   }
 
   @override
@@ -117,7 +121,7 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
               SizedBox(
                 height: 20,
               ),
-                            CustomTextField(
+              CustomTextField(
                 hint: "Enter Phone Number",
                 textEditingController: phoneNumberEditingController,
                 focusNode: phoneFocusNode,
@@ -125,7 +129,22 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
                 onSubmitted: (val) {
-                //  FocusScope.of(context).requestFocus(phoneFocusNode);
+                  //  FocusScope.of(context).requestFocus(phoneFocusNode);
+                },
+                // containerHeight: 50,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              CustomTextField(
+                hint: "Enter User Role",
+                textEditingController: userRoleEditingController,
+                focusNode: userRoleFocusNode,
+                validator: validator.validateName,
+                keyboardType: TextInputType.number,
+                textInputAction: TextInputAction.next,
+                onSubmitted: (val) {
+                  //  FocusScope.of(context).requestFocus(phoneFocusNode);
                 },
                 // containerHeight: 50,
               ),
@@ -162,7 +181,10 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
 
   void onButtonTap() {
     if (_formKey.currentState.validate()) {
-      addAddressCubit.saveData(nameEditingController.text, phoneNumberEditingController.text,
+      addAddressCubit.saveData(
+          nameEditingController.text, 
+          phoneNumberEditingController.text,
+          userRoleEditingController.text,
           isEdit: widget.newAddress);
     }
   }

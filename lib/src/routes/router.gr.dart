@@ -22,6 +22,7 @@ import 'package:fluttercommerce/src/ui/screens/my_address_screen.dart';
 import 'package:fluttercommerce/src/ui/screens/add_address_screen.dart';
 import 'package:fluttercommerce/src/models/account_details_model.dart';
 import 'package:fluttercommerce/src/ui/screens/my_orders_screen.dart';
+import 'package:fluttercommerce/src/ui/screens/add_Product.dart';
 import 'package:fluttercommerce/src/ui/screens/add_user.dart';
 
 class Router {
@@ -38,6 +39,7 @@ class Router {
   static const myAddressScreen = '/my-address-screen';
   static const addAddressScreen = '/add-address-screen';
   static const myOrdersScreen = '/my-orders-screen';
+  static const addProductScreen = '/add-product-screen';
   static const addUserScreen = '/add-user-screen';
   static final navigator = ExtendedNavigator();
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -137,6 +139,15 @@ class Router {
       case Router.myOrdersScreen:
         return CupertinoPageRoute<dynamic>(
           builder: (_) => MyOrdersScreen(),
+          settings: settings,
+        );
+      case Router.addProductScreen:
+        if (hasInvalidArgs<bool>(args)) {
+          return misTypedArgsRoute<bool>(args);
+        }
+        final typedArgs = args as bool;
+        return CupertinoPageRoute<dynamic>(
+          builder: (_) => AddProductScreen(typedArgs),
           settings: settings,
         );
       case Router.addUserScreen:

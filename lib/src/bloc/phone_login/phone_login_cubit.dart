@@ -10,7 +10,7 @@ class PhoneLoginCubit extends Cubit<PhoneLoginState> {
   AuthRepository authRepository = AppInjector.get<AuthRepository>();
 
   validateButton(String email) {
-    if (email.isNotEmpty) {
+    if (email.trim().isNotEmpty) {
       emit(PhoneLoginState.onButtonEnabled());
     } else {
       emit(PhoneLoginState.onButtonDisabled());

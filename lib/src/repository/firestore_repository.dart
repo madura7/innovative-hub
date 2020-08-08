@@ -53,6 +53,13 @@ class FirestoreRepository {
     return documentList;
   }
 
+  Future<void> addProductDetails(ProductModel productModel) async {
+    return await _firestore
+        .collection("products")
+        .document()
+        .setData(productModel.toJson());
+  }
+
   Future<List<ProductModel>> getProductsData(String condition) async {
     List<DocumentSnapshot> docList = (await _firestore
             .collection("products")

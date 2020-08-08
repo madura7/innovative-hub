@@ -12,6 +12,7 @@ import 'package:fluttercommerce/src/repository/firestore_repository.dart';
 import 'package:fluttercommerce/src/res/app_colors.dart';
 import 'package:fluttercommerce/src/res/string_constants.dart';
 import 'package:fluttercommerce/src/res/text_styles.dart';
+import 'package:fluttercommerce/src/ui/screens/add_Product.dart';
 import 'package:fluttercommerce/src/ui/screens/cart_screen.dart';
 import 'package:fluttercommerce/src/ui/screens/home_page.dart';
 
@@ -52,11 +53,13 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   }
 
   void listenToAccountDetails() async {
-    print("listenToAccountDetails");
-//    accountProvider.firebaseUser = await authRepo.getCurrentUser();
+    //    accountProvider.firebaseUser = await authRepo.getCurrentUser();
     firebaseRepo.streamUserDetails(await authRepo.getUid()).listen((event) {
       AccountDetails accountDetails = AccountDetails.fromDocument(event);
       accountDetails.addresses = accountDetails.addresses.reversed.toList();
+
+      print("User Role");
+      print(accountDetails.userRole);
 
       Address address;
       List.generate(accountDetails.addresses.length, (index) {
@@ -85,6 +88,9 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
             SearchItemScreen(),
             CartScreen(),
             AccountScreen(),
+            AddProductScreen(true),
+
+
           ][mainScreenProvider.bottomBarIndex],
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
@@ -131,6 +137,8 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.person),
                   title: Text(StringsConstants.account)),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.add), title: Text(StringsConstants.add)),
             ],
             onTap: (index) {
               mainScreenProvider.bottomBarIndex = index;

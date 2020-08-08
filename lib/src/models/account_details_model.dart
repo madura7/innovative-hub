@@ -1,6 +1,7 @@
 class AccountDetails {
   String name;
   String phoneNumber;
+  String userRole;
   List<Address> addresses = [];
 
   AccountDetails({this.name, this.phoneNumber, this.addresses});
@@ -8,6 +9,7 @@ class AccountDetails {
   AccountDetails.fromDocument(json) {
     name = json['name'];
     phoneNumber = json['phone_number'];
+    userRole = json['userRole'];
     if (json['addresses'] != null) {
       addresses = new List<Address>();
       print(json["addresses"]);
@@ -23,6 +25,7 @@ class AccountDetails {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['name'] = this.name;
     data['phone_number'] = this.phoneNumber;
+    data['userRole'] = this.userRole;
     if (this.addresses != null) {
       data['addresses'] = this.addresses.map((v) => v.toJson()).toList();
     }

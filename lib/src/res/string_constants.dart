@@ -77,6 +77,15 @@ class StringsConstants {
 
   static const orderedOnCaps = "ORDERED ON";
 
+
+  static const productTitleText =
+      "Enter Product Details";
+  static const productName = "Product Name";
+  static const productDescription = "Product Description";
+  static const currency = "Currncy";
+  static const currentPrice = "Current Price";
+  static const actualPrice = "Actual Price";
+
   //error messages
 
   static const noAddressFound = "No Address Found";

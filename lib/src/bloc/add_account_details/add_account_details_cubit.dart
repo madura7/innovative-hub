@@ -16,10 +16,6 @@ class AddAccountDetailsCubit extends Cubit<AddAccountDetailsState> {
   AccountDetails _accountDetails;
 
   validateButton(String name, String phoneNumber) {
-    print("validateName");
-    print(_validator.validateName(name));
-    print("validateMobile");
-    print(_validator.validateMobile(phoneNumber));
     if (_validator.validateName(name) == null && _validator.validateMobile(phoneNumber) == null) {
       emit(ButtonEnabled());
     } else
@@ -33,12 +29,13 @@ class AddAccountDetailsCubit extends Cubit<AddAccountDetailsState> {
     validateButton(_accountDetails.name, _accountDetails.phoneNumber);
   }
 
-  saveData(String name, String phoneNumber, {bool isEdit = false}) async {
+  saveData(String name, String phoneNumber,String userRole, {bool isEdit = false}) async {
     if (isEdit) {
       _accountDetails = AccountDetails();
     }
     _accountDetails.name = name;
     _accountDetails.phoneNumber = phoneNumber;
+    _accountDetails.userRole = userRole;
     //_accountDetails.phoneNumber = await _authRepo.getPhoneNumber();
     emit(AddAccountDetailsState.saveDataLoading());
     await _firebaseRepo.addUserDetails(_accountDetails);

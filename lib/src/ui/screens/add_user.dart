@@ -158,7 +158,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
 
   void onButtonTap() {
    if (_formKey.currentState.validate()) {
-      addUserCubit.registerNewUser(emailController.text, passwordController.text);
+      addUserCubit.registerNewUser(emailController.text.trim(), passwordController.text.trim());
       
     }
   }

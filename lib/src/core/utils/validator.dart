@@ -89,6 +89,7 @@ class Validator {
   }
 
   String validateEmail(String value) {
+    value = value.trim();
     var pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
     var regExp = new RegExp(pattern);
@@ -129,6 +130,11 @@ class Validator {
     if (value.isEmpty) {
       return "$desc is Required";
     }
+    return null;
+  }
+
+  String validateNum(String value) {
+    
     return null;
   }
 }
