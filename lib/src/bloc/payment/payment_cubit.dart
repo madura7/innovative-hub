@@ -16,7 +16,7 @@ class PaymentCubit extends Cubit<PaymentState> {
   void openCheckout(num price) {
     // int.parse((price*100).toString());
     var options = {
-      'key': 'Add-Key-Here',
+      'key': 'rzp_test_1DP5mmOlF5G5ag',
       'amount': price * 100,
       'name': 'Flutter-Commerce',
       'description': 'This is a Text Payment',

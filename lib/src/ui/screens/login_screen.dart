@@ -121,6 +121,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 hint: StringsConstants.password,
                 validator: validator.validatePassword,
                 keyboardType: TextInputType.visiblePassword,
+                obscureText: true,
+                
               ),
               SizedBox(
                 height: 20,

@@ -11,6 +11,7 @@ import 'package:fluttercommerce/src/ui/common/action_text.dart';
 import 'package:fluttercommerce/src/ui/common/commom_text_field.dart';
 import 'package:fluttercommerce/src/ui/common/common_app_loader.dart';
 import 'package:fluttercommerce/src/ui/common/common_button.dart';
+import 'package:rating_bar/rating_bar.dart';
 
 class AddProductScreen extends StatefulWidget {
   final bool newAddress;
@@ -38,6 +39,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   Validator validator = Validator();
   String roleValue = 'Admin';
+  double _ratingStar = 0;
 
   @override
   void initState() {
@@ -62,7 +64,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         cubit: addProductCubit,
         listener: (BuildContext context, AddProductState state) {
           state.when(
-              idle:  () {},
+              idle: () {},
               onButtonEnabled: () {},
               onButtonDisabled: () {},
               saveDataLoading: () {},
@@ -85,6 +87,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 currencyEditingController.clear();
                 currentPriceEditingController.clear();
                 actualPriceEditingController.clear();
+                //setState(() => _ratingStar = 0);
                 final snackBar = SnackBar(
                   content: Text("Saved Successfully"),
                   action: SnackBarAction(
@@ -215,6 +218,17 @@ class _AddProductScreenState extends State<AddProductScreen> {
               SizedBox(
                 height: 20,
               ),
+              RatingBar(
+                onRatingChanged: (rating) =>
+                    setState(() => _ratingStar = rating),
+                filledIcon: Icons.star,
+                emptyIcon: Icons.star_border,
+                halfFilledIcon: Icons.star_half,
+                isHalfAllowed: true,
+                filledColor: Colors.green,
+                emptyColor: Colors.redAccent,
+                halfFilledColor: Colors.amberAccent, 
+              ),
               CommonButton(
                 title: widget.newAddress ? "Add" : "Edit",
                 titleColor: AppColors.white,
@@ -252,6 +266,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
           currencyEditingController.text,
           int.parse(currentPriceEditingController.text),
           int.parse(actualPriceEditingController.text),
+          _ratingStar,
           isEdit: widget.newAddress);
     }
   }

@@ -140,7 +140,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
               BottomNavigationBarItem(
                   icon: Icon(Icons.add), title: Text(StringsConstants.add)),
             ],
-            onTap: (index) {
+            onTap: (index) { 
               mainScreenProvider.bottomBarIndex = index;
             },
             currentIndex: mainScreenProvider.bottomBarIndex,

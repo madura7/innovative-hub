@@ -29,4 +29,9 @@ class AccountProvider with ChangeNotifier {
     _addressSelected = value;
     notifyListeners();
   }
+
+  set couponApplied(Address value) {
+    _addressSelected = value;
+    notifyListeners();
+  }
 }

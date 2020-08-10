@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class ProductModel {
@@ -16,6 +18,7 @@ class ProductModel {
   num quantityPerUnit;
   bool isProductAvailable;
   List<String> nameSearch;
+  double ratingStar;
 
   ProductModel(
       {this.productId,
@@ -32,7 +35,8 @@ class ProductModel {
       this.quantityPerUnit,
       this.description,
       this.isProductAvailable = false,
-      this.nameSearch});
+      this.nameSearch,
+      this.ratingStar});
 
   factory ProductModel.fromJson(DocumentSnapshot json) {
     return ProductModel(
@@ -51,6 +55,7 @@ class ProductModel {
       currentPrice: json['current_price'] as num,
       actualPrice: json['actual_price'] as num,
       quantityPerUnit: json['quantity_per_unit'] as num,
+      ratingStar: json['ratingStar'] as double,
     );
   }
 
@@ -70,11 +75,12 @@ class ProductModel {
         'quantity_per_unit': quantityPerUnit,
         'is_product_available': isProductAvailable,
         'name_search': setSearchParam(name),
+        'ratingStar': ratingStar,
       };
 
   @override
   String toString() {
-    return 'ProductModel{productId: $productId, image: $image, name: $name, unit: $unit, categories: $categories, currency: $currency, dealOfTheDay: $dealOfTheDay, topProducts: $topProducts, onSale: $onSale, currentPrice: $currentPrice, actualPrice: $actualPrice}';
+    return 'ProductModel{productId: $productId, image: $image, name: $name, unit: $unit, categories: $categories, currency: $currency, dealOfTheDay: $dealOfTheDay, topProducts: $topProducts, onSale: $onSale, currentPrice: $currentPrice, actualPrice: $actualPrice, ratingStar: $ratingStar}';
   }
 
   List<String> setSearchParam(String name) {

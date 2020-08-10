@@ -12,6 +12,7 @@ import 'package:fluttercommerce/src/res/text_styles.dart';
 import 'package:fluttercommerce/src/ui/common/common_app_loader.dart';
 import 'package:fluttercommerce/src/ui/common/common_view_cart_overlay.dart';
 import 'package:fluttercommerce/src/ui/screens/base_screen_mixin.dart';
+import 'package:rating_bar/rating_bar.dart';
 
 class ProductDetailPage extends StatefulWidget {
   final ProductModel productModel;
@@ -71,6 +72,17 @@ class _ProductDetailPageState extends State<ProductDetailPage>
                       Text(
                         "${widget.productModel.currency}${widget.productModel.currentPrice} / ${widget.productModel.quantityPerUnit} ${widget.productModel.unit}",
                         style: AppTextStyles.medium16Black,
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      RatingBar.readOnly(
+                        initialRating: widget.productModel.ratingStar ?? 0,
+                        isHalfAllowed: true,
+                        halfFilledIcon: Icons.star_half,
+                        filledIcon: Icons.star,
+                        emptyIcon: Icons.star_border,
+                        size: 16,
                       ),
                       SizedBox(
                         width: 10,

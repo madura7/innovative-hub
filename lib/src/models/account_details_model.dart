@@ -2,6 +2,7 @@ class AccountDetails {
   String name;
   String phoneNumber;
   String userRole;
+  bool membershipStatus;
   List<Address> addresses = [];
 
   AccountDetails({this.name, this.phoneNumber, this.addresses});
@@ -10,6 +11,7 @@ class AccountDetails {
     name = json['name'];
     phoneNumber = json['phone_number'];
     userRole = json['userRole'];
+    membershipStatus = json['membershipStatus'];
     if (json['addresses'] != null) {
       addresses = new List<Address>();
       print(json["addresses"]);
@@ -26,6 +28,7 @@ class AccountDetails {
     data['name'] = this.name;
     data['phone_number'] = this.phoneNumber;
     data['userRole'] = this.userRole;
+    data['membershipStatus'] = this.membershipStatus;
     if (this.addresses != null) {
       data['addresses'] = this.addresses.map((v) => v.toJson()).toList();
     }

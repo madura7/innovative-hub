@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route_annotations.dart';
+import 'package:fluttercommerce/src/ui/common/PaypalPayment.dart';
 import 'package:fluttercommerce/src/ui/screens/SearchScreen.dart';
 import 'package:fluttercommerce/src/ui/screens/add_address_screen.dart';
 import 'package:fluttercommerce/src/ui/screens/add_Product.dart';
@@ -43,4 +44,5 @@ class $Router {
   MyOrdersScreen myOrdersScreen;
   AddProductScreen addProductScreen;
   AddUserScreen addUserScreen;
+  PaypalPayment paypalPayment;
 }

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercommerce/src/bloc/add_product/add_product_state.dart';
 import 'package:fluttercommerce/src/di/app_injector.dart';
@@ -17,7 +19,7 @@ class AddProductCubit extends Cubit<AddProductState> {
   }
 
   saveData(String name, String description,
-    String currency, num currentPrice, num actualPrice, 
+    String currency, num currentPrice, num actualPrice, double ratingStar,
     {bool isEdit = false}) async {
       print("saveData");
     if (isEdit) {
@@ -32,8 +34,9 @@ class AddProductCubit extends Cubit<AddProductState> {
     _productModel.image = "https://i5.walmartimages.ca/images/Large/094/514/6000200094514.jpg";
     _productModel.categories = ["top_products"];
     _productModel.dealOfTheDay = true;
+    _productModel.ratingStar = ratingStar;
 
-
+    print(_productModel);
     emit(AddProductState.saveDataLoading());
     await _firebaseRepo.addProductDetails(_productModel);
     //await authRepository.setAccountDetails(displayName: _productModel.name);

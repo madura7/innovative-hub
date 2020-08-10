@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttercommerce/src/models/product_model.dart';
 import 'package:fluttercommerce/src/res/text_styles.dart';
 import 'package:fluttercommerce/src/routes/router.gr.dart';
+import 'package:rating_bar/rating_bar.dart';
 
 class ProductCard extends StatelessWidget {
   final ProductModel productModel;
@@ -67,9 +68,17 @@ class ProductCard extends StatelessWidget {
                   SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    "${productModel.quantityPerUnit}${productModel.unit}",
-                    style: AppTextStyles.normal12Color81819A,
+                  // Text(
+                  //   "${productModel.quantityPerUnit}${productModel.unit}",
+                  //   style: AppTextStyles.normal12Color81819A,
+                  // ),
+                  RatingBar.readOnly(
+                    initialRating: productModel.ratingStar ?? 0,
+                    isHalfAllowed: true,
+                    halfFilledIcon: Icons.star_half,
+                    filledIcon: Icons.star,
+                    emptyIcon: Icons.star_border,
+                    size: 16,
                   ),
                 ],
               ),

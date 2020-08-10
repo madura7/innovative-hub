@@ -11,6 +11,7 @@ import 'package:fluttercommerce/src/res/app_colors.dart';
 import 'package:fluttercommerce/src/res/string_constants.dart';
 import 'package:fluttercommerce/src/res/text_styles.dart';
 import 'package:fluttercommerce/src/routes/router.gr.dart';
+import 'package:fluttercommerce/src/ui/common/PaypalPayment.dart';
 import 'package:fluttercommerce/src/ui/common/action_text.dart';
 import 'package:fluttercommerce/src/ui/common/cart_item_card.dart';
 import 'package:fluttercommerce/src/ui/common/common_button.dart';
@@ -77,6 +78,10 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
                 height: 20,
               ),
               deliverTo(),
+              SizedBox(
+                height: 50,
+              ),
+              applyCoupon(),
               SizedBox(
                 height: 50,
               ),
@@ -292,11 +297,25 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
                     margin: EdgeInsets.only(right: 20),
                     onTap: () {
                       var addressProvider = AppInjector.get<AccountProvider>();
-                      if (addressProvider.addressSelected != null) {
-                        paymentCubit.openCheckout(cartItemStatus.priceInCart);
-                      } else {
-                        showSnackBar(title: StringsConstants.noAddressSelected);
-                      }
+
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => PaypalPayment(
+                              onFinish: (number) async {
+                                // payment done
+                                print('order id: '+number);
+                              },
+                            ),
+                          ),
+                        );
+
+
+                     
+                      // if (addressProvider.addressSelected != null) {
+                      //   paymentCubit.openCheckout(cartItemStatus.priceInCart);
+                      // } else {
+                      //   showSnackBar(title: StringsConstants.noAddressSelected);
+                      // }
                     },
                   );
                 },

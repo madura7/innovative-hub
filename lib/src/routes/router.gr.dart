@@ -24,6 +24,7 @@ import 'package:fluttercommerce/src/models/account_details_model.dart';
 import 'package:fluttercommerce/src/ui/screens/my_orders_screen.dart';
 import 'package:fluttercommerce/src/ui/screens/add_Product.dart';
 import 'package:fluttercommerce/src/ui/screens/add_user.dart';
+import 'package:fluttercommerce/src/ui/common/PaypalPayment.dart';
 
 class Router {
   static const splashScreen = '/';
@@ -41,6 +42,7 @@ class Router {
   static const myOrdersScreen = '/my-orders-screen';
   static const addProductScreen = '/add-product-screen';
   static const addUserScreen = '/add-user-screen';
+  static const paypalPayment = '/paypal-payment';
   static final navigator = ExtendedNavigator();
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -153,6 +155,15 @@ class Router {
       case Router.addUserScreen:
         return CupertinoPageRoute<dynamic>(
           builder: (_) => AddUserScreen(),
+          settings: settings,
+        );
+      case Router.paypalPayment:
+        if (hasInvalidArgs<Function>(args)) {
+          return misTypedArgsRoute<Function>(args);
+        }
+        final typedArgs = args as Function;
+        return CupertinoPageRoute<dynamic>(
+          builder: (_) => PaypalPayment(onFinish: typedArgs),
           settings: settings,
         );
       default:

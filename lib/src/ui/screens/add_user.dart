@@ -103,6 +103,7 @@ class _AddUserScreenState extends State<AddUserScreen> {
                 hint: StringsConstants.password,
                 validator: validator.validatePassword,
                 keyboardType: TextInputType.text,
+                obscureText: true,
               ),
               SizedBox(
                 height: 20,

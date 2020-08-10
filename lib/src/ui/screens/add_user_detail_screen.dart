@@ -10,6 +10,7 @@ import 'package:fluttercommerce/src/ui/common/action_text.dart';
 import 'package:fluttercommerce/src/ui/common/commom_text_field.dart';
 import 'package:fluttercommerce/src/ui/common/common_app_loader.dart';
 import 'package:fluttercommerce/src/ui/common/common_button.dart';
+import 'package:searchable_dropdown/searchable_dropdown.dart';
 
 class AddUserDetailScreen extends StatefulWidget {
   final bool newAddress;
@@ -31,10 +32,15 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
   FocusNode userRoleFocusNode = FocusNode();
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   Validator validator = Validator();
-  String roleValue = 'Admin';
+
+  String roleValue;
+  bool membershipStatus = false;
+  final List<DropdownMenuItem> items = [];
 
   @override
   void initState() {
+    
+    setDropDownValues();
     super.initState();
     if (!widget.newAddress) {
       addAddressCubit.loadPreviousData();
@@ -47,7 +53,22 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
       addAddressCubit.validateButton(
           nameEditingController.text, phoneNumberEditingController.text);
     });
-    userRoleEditingController.text = "Admin";
+    //userRoleEditingController.text = "Admin";
+  }
+
+  setDropDownValues(){
+    items.add(DropdownMenuItem(
+      child: Text("Admin"),
+      value: "Admin",
+    ));
+    items.add(DropdownMenuItem(
+      child: Text("Buyer"),
+      value: "Buyer",
+    ));
+    items.add(DropdownMenuItem(
+      child: Text("Seller"),
+      value: "Seller",
+    ));
   }
 
   @override
@@ -70,6 +91,9 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
           }
           if (state is EditData) {
             nameEditingController.text = state.accountDetails.name;
+            phoneNumberEditingController.text = state.accountDetails.phoneNumber;
+            roleValue = state.accountDetails.userRole;
+            membershipStatus = state.accountDetails.membershipStatus ?? false;
           }
         },
         builder: (BuildContext context, AddAccountDetailsState state) {
@@ -133,24 +157,53 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
                 },
                 // containerHeight: 50,
               ),
+              // SizedBox(
+              //   height: 20,
+              // ),
+              // CustomTextField(
+              //   hint: "Enter User Role",
+              //   textEditingController: userRoleEditingController,
+              //   focusNode: userRoleFocusNode,
+              //   validator: validator.validateName,
+              //   keyboardType: TextInputType.number,
+              //   textInputAction: TextInputAction.next,
+              //   onSubmitted: (val) {
+              //     //  FocusScope.of(context).requestFocus(phoneFocusNode);
+              //   },
+              //   // containerHeight: 50,
+              // ),
               SizedBox(
                 height: 20,
               ),
-              CustomTextField(
-                hint: "Enter User Role",
-                textEditingController: userRoleEditingController,
-                focusNode: userRoleFocusNode,
-                validator: validator.validateName,
-                keyboardType: TextInputType.number,
-                textInputAction: TextInputAction.next,
-                onSubmitted: (val) {
-                  //  FocusScope.of(context).requestFocus(phoneFocusNode);
+
+              SearchableDropdown.single(
+                items: items,
+                value: roleValue,
+                hint: "Select one",
+                searchHint: "Select one",
+                onChanged: (value) {
+                  setState(() {
+                    roleValue = value;
+                  });
                 },
-                // containerHeight: 50,
+                isExpanded: true,
               ),
+
               SizedBox(
                 height: 20,
               ),
+              CommonButton(
+                title: "Apply For Membership",
+                titleColor: AppColors.white,
+                height: 50,
+                isEnabled: !membershipStatus,
+                replaceWithIndicator: state is SaveDataLoading ? true : false,
+                margin: EdgeInsets.only(bottom: 20),
+                onTap: () {
+                  onButtonTapApplyMembership();
+                },
+              ),
+
               CommonButton(
                 title: widget.newAddress ? "Add" : "Edit",
                 titleColor: AppColors.white,
@@ -180,12 +233,27 @@ class _AddUserDetailScreenState extends State<AddUserDetailScreen> {
   }
 
   void onButtonTap() {
+    print("selected value");
+    print(roleValue);
     if (_formKey.currentState.validate()) {
-      addAddressCubit.saveData(
-          nameEditingController.text, 
-          phoneNumberEditingController.text,
-          userRoleEditingController.text,
+      addAddressCubit.saveData(nameEditingController.text,
+          phoneNumberEditingController.text, roleValue, membershipStatus,
           isEdit: widget.newAddress);
     }
   }
+
+
+  void onButtonTapApplyMembership() {
+    print("onButtonTapApplyMembership");
+    setState(() {
+      membershipStatus = true;
+    });
+    if (_formKey.currentState.validate()) {
+      addAddressCubit.saveData(nameEditingController.text,
+          phoneNumberEditingController.text, roleValue, membershipStatus,
+          isEdit: widget.newAddress);
+    }
+  }
+
+
 }
