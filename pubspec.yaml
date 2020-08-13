@@ -35,7 +35,10 @@ dependencies:
   webview_flutter: ^0.3.22+1
   image_picker: ^0.6.7+4
   firebase_storage: ^3.0.3 
-
+  flutter_email_sender: ^3.0.1
+  mailer2: ^1.2.5
+  html: ^0.14.0+3
+  
 
 dev_dependencies:
   flutter_test:
@@ -53,6 +56,7 @@ flutter:
   assets:
     #Images
     - assets/images/app_logo.png
+    - assets/images/innovative_hub.png
 
 
   fonts:

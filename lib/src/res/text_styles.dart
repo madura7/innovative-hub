@@ -96,6 +96,11 @@ class AppTextStyles {
         fontSize: 20,
       );
 
+  static TextStyle get normal30Black => TextStyle(
+        color: AppColors.black,
+        fontSize: 30,
+      );
+
   static TextStyle get normal14Black => TextStyle(
         color: AppColors.black,
         fontSize: 14,

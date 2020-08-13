@@ -31,6 +31,8 @@ class AddAccountDetailsCubit extends Cubit<AddAccountDetailsState> {
 
   saveData(String name, String phoneNumber,String userRole, 
   bool membershipStatus, {bool isEdit = false}) async {
+
+    
     if (isEdit) {
       _accountDetails = AccountDetails();
     }
@@ -38,6 +40,8 @@ class AddAccountDetailsCubit extends Cubit<AddAccountDetailsState> {
     _accountDetails.phoneNumber = phoneNumber;
     _accountDetails.userRole = userRole;
     _accountDetails.membershipStatus = membershipStatus;
+    _accountDetails.email = "email";
+    
     //_accountDetails.phoneNumber = await _authRepo.getPhoneNumber();
     emit(AddAccountDetailsState.saveDataLoading());
     await _firebaseRepo.addUserDetails(_accountDetails);

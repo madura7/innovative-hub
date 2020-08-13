@@ -82,6 +82,11 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   Widget build(BuildContext context) {
     return ProviderNotifier<MainScreenProvider>(
       child: (MainScreenProvider mainScreenProvider) {
+
+        if(true){
+
+        }
+
         return Scaffold(
           body: [
             HomePageScreen(),
@@ -89,7 +94,6 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
             CartScreen(),
             AccountScreen(),
             AddProductScreen(true),
-
 
           ][mainScreenProvider.bottomBarIndex],
           bottomNavigationBar: BottomNavigationBar(
@@ -102,9 +106,11 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
             items: [
               BottomNavigationBarItem(
                   icon: Icon(Icons.home), title: Text(StringsConstants.home)),
+              
               BottomNavigationBarItem(
                   icon: Icon(Icons.search),
                   title: Text(StringsConstants.search)),
+              
               BottomNavigationBarItem(
                   icon: Stack(
                     children: <Widget>[

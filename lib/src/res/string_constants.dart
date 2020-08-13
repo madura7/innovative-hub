@@ -1,8 +1,11 @@
 class StringsConstants {
   static const login = "Login";
+  static const appName = "INNOVATIVE HUB";
 
   static const phoneLoginText =
       "Enter your number to log in or create an account";
+static const loginText =
+      "Enter your email and password to log in";
   static const continueText = "Continue";
   static const registerText = "Register";
   static const mobileNumber = "Mobile Number";
@@ -42,6 +45,7 @@ class StringsConstants {
   static const deliverTo = "Deliver to";
   static const changeTextCapital = "CHANGE";
   static const viewDetailedBillCaps = "VIEW DETAILED BILL";
+  static const sendInvoiceEmail = "SEND DETAILED EMAIL";
   static const makePayment = "Make Payment";
   static const applyCoupon = "Apply Coupon";
   static const searchItems = "Search Items...";
@@ -91,4 +95,10 @@ class StringsConstants {
   static const noAddressFound = "No Address Found";
   static const noAddressSelected = "No Address Selected";
   static const connectionNotAvailable = "Network Connection not available";
+
+
+  //Constants
+  static const staticCouponCode = "c001";
+  static const couponAppliedMsg = "Coupon Applied";
+
 }

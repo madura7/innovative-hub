@@ -1,5 +1,7 @@
 import 'package:fluttercommerce/src/bloc/add_product/add_product.dart';
 import 'package:fluttercommerce/src/bloc/add_user/add_user.dart';
+import 'package:fluttercommerce/src/bloc/send_email/send_email.dart';
+import 'package:fluttercommerce/src/repository/emailService.dart';
 import 'package:get_it/get_it.dart';
 import 'package:fluttercommerce/src/bloc/add_account_details/add_account_details.dart';
 import 'package:fluttercommerce/src/bloc/add_address/add_address.dart';
@@ -46,6 +48,7 @@ class AppInjector {
   static _initRepos() {
     _injector.registerFactory(() => FirestoreRepository());
     _injector.registerFactory(() => AuthRepository());
+    _injector.registerFactory(() => EmailService());
   }
 
   static _initCubits() {
@@ -71,6 +74,8 @@ class AppInjector {
     _injector.registerFactory(() => AddAddressCubit());
     _injector.registerFactory(() => AddressCardCubit());
     _injector.registerFactory(() => MyOrdersCubit());
+
+    _injector.registerFactory(() => SendEmailCubit());
   }
 
   static void _initNotifiers() {

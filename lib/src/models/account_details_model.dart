@@ -2,6 +2,7 @@ class AccountDetails {
   String name;
   String phoneNumber;
   String userRole;
+  String email;
   bool membershipStatus;
   List<Address> addresses = [];
 
@@ -11,6 +12,7 @@ class AccountDetails {
     name = json['name'];
     phoneNumber = json['phone_number'];
     userRole = json['userRole'];
+    email = json['email'];
     membershipStatus = json['membershipStatus'];
     if (json['addresses'] != null) {
       addresses = new List<Address>();
@@ -28,6 +30,8 @@ class AccountDetails {
     data['name'] = this.name;
     data['phone_number'] = this.phoneNumber;
     data['userRole'] = this.userRole;
+    data['email'] = this.email;
+
     data['membershipStatus'] = this.membershipStatus;
     if (this.addresses != null) {
       data['addresses'] = this.addresses.map((v) => v.toJson()).toList();

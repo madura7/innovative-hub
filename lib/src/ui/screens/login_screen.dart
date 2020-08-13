@@ -9,7 +9,8 @@ import 'package:fluttercommerce/src/res/text_styles.dart';
 import 'package:fluttercommerce/src/routes/router.gr.dart';
 import 'package:fluttercommerce/src/ui/common/commom_text_field.dart';
 import 'package:fluttercommerce/src/ui/common/common_button.dart';
-
+import 'package:flutter/services.dart' show rootBundle;
+        
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
@@ -74,6 +75,10 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+Future<String> loadAsset() async {
+  return await rootBundle.loadString('assets/config.json');
+}
+
   Widget _loginCard() {
     return Card(
       margin: EdgeInsets.only(top: 50, right: 16, left: 16),
@@ -84,6 +89,10 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
+              Image(image: AssetImage('assets/images/innovative_hub.png'), width: 200, height: 100,),
+              SizedBox(
+                height: 20,
+              ),
               Text(
                 StringsConstants.login,
                 style: AppTextStyles.medium20Color20203E,
@@ -92,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 20,
               ),
               Text(
-                StringsConstants.phoneLoginText,
+                StringsConstants.loginText,
                 style: AppTextStyles.normal14Black,
               ),
               SizedBox(

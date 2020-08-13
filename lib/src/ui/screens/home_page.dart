@@ -65,9 +65,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 height: 20,
               ),
               productDataBuilder(dealsDayCubit, StringsConstants.dealOfTheDay),
-              productDataBuilder(onSaleCubit, StringsConstants.onSale),
-              productDataBuilder(
-                  topProductsCubit, StringsConstants.topProducts),
+              //productDataBuilder(onSaleCubit, StringsConstants.onSale),
+              // productDataBuilder(
+              //     topProductsCubit, StringsConstants.topProducts),
               SizedBox(
                 height: 20,
               )
@@ -187,7 +187,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                title,
+                //title,
+                "List of Products",
                 style: AppTextStyles.medium20Color20203E,
               ),
               Container(

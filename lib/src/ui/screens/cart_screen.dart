@@ -1,8 +1,13 @@
+//import 'dart:html';
+
+//import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercommerce/src/bloc/payment/payment.dart';
 import 'package:fluttercommerce/src/bloc/place_order/place_order_cubit.dart';
 import 'package:fluttercommerce/src/bloc/place_order/place_order_state.dart';
+import 'package:fluttercommerce/src/bloc/send_email/send_email_cubit.dart';
 import 'package:fluttercommerce/src/core/utils/validator.dart';
 import 'package:fluttercommerce/src/di/app_injector.dart';
 import 'package:fluttercommerce/src/notifiers/account_provider.dart';
@@ -28,25 +33,32 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
   var paymentCubit = AppInjector.get<PaymentCubit>();
   var placeOrderCubit = AppInjector.get<PlaceOrderCubit>();
+  var emailCubit = AppInjector.get<SendEmailCubit>();
+
   TextEditingController couponController = TextEditingController();
   Validator validator = Validator();
   double couponAppliedValue = 0;
+  bool couponAppliedStatus = false;
 
   @override
   void initState() {
     super.initState();
     couponController.addListener(() {
       print(couponController.text);
-      if(couponController.text == "abcd"){
+      if (couponController.text.toUpperCase() ==
+          StringsConstants.staticCouponCode.toUpperCase()) {
         print("applied");
         setState(() {
           couponAppliedValue = 100;
+          couponAppliedStatus = true;
         });
-      }else{
+      } else {
         print("not applied");
+        setState(() {
+          couponAppliedValue = 0;
+          couponAppliedStatus = false;
+        });
       }
-
-
     });
   }
 
@@ -104,6 +116,7 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
               //   height: 50,
               // ),
               apply(),
+
               SizedBox(
                 height: 50,
               ),
@@ -139,34 +152,29 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
               onPressed: (() => {
                     print("Apply Coupon"),
                   })),
-          
         ],
       ),
     ));
   }
 
-
   Widget apply() {
     return CommonCard(
-        child: Container(
-          
-          child: CustomTextField(
-            fillColor: Colors.white,
-                textEditingController: couponController,
-                hint: StringsConstants.applyCoupon,
-                validator: validator.validateName,
-                keyboardType: TextInputType.text,
-              ),
-          
-        
-        ));
+      child: Container(
+          child: Column(children: [
+        CustomTextField(
+          fillColor: Colors.white,
+          textEditingController: couponController,
+          hint: StringsConstants.applyCoupon,
+          validator: validator.validateName,
+          keyboardType: TextInputType.text,
+        ),
+        Text(couponAppliedStatus ? StringsConstants.couponAppliedMsg : ""),
+      ])),
+    );
   }
-
-
 
   Widget billDetails(CartStatusProvider cartItemStatus) {
     Widget priceRow(String title, String price, {bool isFinal = false}) {
-      
       return Column(
         children: [
           Row(
@@ -221,10 +229,11 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
 //              "${cartItemStatus.currency}${cartItemStatus.priceInCart}"),
 //          priceRow(
 //              StringsConstants.taxAndCharges, "${cartItemStatus.currency}900"),
-          priceRow(StringsConstants.toPay,
-              "${cartItemStatus.currency} " " ${ cartItemStatus.priceInCart - couponAppliedValue }",
+          priceRow(
+              StringsConstants.toPay,
+              "${cartItemStatus.currency} "
+              " ${cartItemStatus.priceInCart - couponAppliedValue}",
               isFinal: true),
-              
         ],
       ),
     ));
@@ -299,7 +308,13 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
                       "${cartItemStatus.priceInCart - couponAppliedValue}",
                       style: AppTextStyles.medium15Black,
                     ),
-                    ActionText(StringsConstants.viewDetailedBillCaps)
+                    ActionText(
+                      StringsConstants.sendInvoiceEmail,
+                      onTap: () {
+                        print("Detailed Bill");
+                        emailCubit.sendEmail(cartItemStatus);
+                      },
+                    )
                   ],
                 ),
               ),
