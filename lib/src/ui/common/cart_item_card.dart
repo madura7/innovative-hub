@@ -70,7 +70,9 @@ class _CartItemCardState extends State<CartItemCard> {
                             height: 10,
                           ),
                           Text(
-                            "${widget.cartModel.currency}${widget.cartModel.currentPrice} / ${widget.cartModel.quantityPerUnit} ${widget.cartModel.unit}",
+                            //"${widget.cartModel.currency} ""${widget.cartModel.currentPrice} / ${widget.cartModel.quantityPerUnit} "" ${widget.cartModel.unit}",
+                            "${widget.cartModel.currency} ""${widget.cartModel.currentPrice}",
+                            
                             style: TextStyle(
                                 fontSize: 14, color: AppColors.color81819A),
                           ),
@@ -150,7 +152,7 @@ class _CartItemCardState extends State<CartItemCard> {
                         ),
                       ),
                       Text(
-                        "${widget.cartModel.currency}${widget.cartModel.currentPrice * widget.cartModel.numOfItems}",
+                        "${widget.cartModel.currency} " "${widget.cartModel.currentPrice * widget.cartModel.numOfItems}",
                         style: TextStyle(
                           color: AppColors.black,
                           fontSize: 14,

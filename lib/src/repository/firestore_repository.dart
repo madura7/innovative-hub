@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:fluttercommerce/src/di/app_injector.dart';
 import 'package:fluttercommerce/src/models/account_details_model.dart';
 import 'package:fluttercommerce/src/models/cartModel_model.dart';
@@ -56,7 +57,7 @@ class FirestoreRepository {
   Future<void> addProductDetails(ProductModel productModel) async {
     return await _firestore
         .collection("products")
-        .document()
+        .document(productModel.name)
         .setData(productModel.toJson());
   }
 
@@ -116,7 +117,7 @@ class FirestoreRepository {
         .collection("users")
         .document(await authRepo.getUid())
         .collection("cart")
-        .document(cartModel.productId)
+        .document(cartModel.name)
         .setData(cartModel.toJson());
   }
 
@@ -203,4 +204,7 @@ class FirestoreRepository {
       }
     });
   }
+
+ 
+
 }

@@ -33,7 +33,9 @@ dependencies:
   http_auth: ^0.3.0
   shared_preferences: ^0.5.8
   webview_flutter: ^0.3.22+1
-  
+  image_picker: ^0.6.7+4
+  firebase_storage: ^3.0.3 
+
 
 dev_dependencies:
   flutter_test:

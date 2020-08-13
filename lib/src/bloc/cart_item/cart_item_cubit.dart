@@ -18,6 +18,7 @@ class CartItemCubit extends Cubit<CartItemState> {
 
   updateCartValues(
       CartModel cartModel, int cartValue, bool shouldIncrease) async {
+        
     int newCartValue = shouldIncrease ? cartValue + 1 : cartValue - 1;
     emit(CartDataLoading());
     if (newCartValue > 0) {
@@ -27,6 +28,8 @@ class CartItemCubit extends Cubit<CartItemState> {
         return;
       }
       cartModel.numOfItems = newCartValue;
+      print("cartModel");
+      print(cartModel.productId);
       _firebaseRepo.addProductToCart(cartModel).then((value) {
         emit(ShowCartValue(newCartValue));
       }).catchError((e) {

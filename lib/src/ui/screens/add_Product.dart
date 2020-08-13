@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercommerce/src/bloc/add_account_details/add_account_details.dart';
@@ -12,6 +15,8 @@ import 'package:fluttercommerce/src/ui/common/commom_text_field.dart';
 import 'package:fluttercommerce/src/ui/common/common_app_loader.dart';
 import 'package:fluttercommerce/src/ui/common/common_button.dart';
 import 'package:rating_bar/rating_bar.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as Path;
 
 class AddProductScreen extends StatefulWidget {
   final bool newAddress;
@@ -40,6 +45,16 @@ class _AddProductScreenState extends State<AddProductScreen> {
   Validator validator = Validator();
   String roleValue = 'Admin';
   double _ratingStar = 0;
+
+  PickedFile _imageFile;
+  File imageFile;
+  dynamic _pickImageError;
+  String _retrieveDataError;
+  final ImagePicker _picker = ImagePicker();
+  final TextEditingController maxWidthController = TextEditingController();
+  final TextEditingController maxHeightController = TextEditingController();
+  final TextEditingController qualityController = TextEditingController();
+  String _uploadedFileURL;
 
   @override
   void initState() {
@@ -117,6 +132,61 @@ class _AddProductScreenState extends State<AddProductScreen> {
             return saveDataView(state);
           }
         },
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          FloatingActionButton(
+            onPressed: () {
+              _onImageButtonPressed(ImageSource.gallery, context: context);
+            },
+            heroTag: 'image0',
+            backgroundColor: Colors.red,
+            tooltip: 'Pick Image from gallery',
+            child: const Icon(Icons.photo_library),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: FloatingActionButton(
+              onPressed: () {
+                // isVideo = false;
+                _onImageButtonPressed(ImageSource.camera, context: context);
+              },
+              heroTag: 'image1',
+              tooltip: 'Take a Photo',
+              backgroundColor: Colors.red,
+              child: const Icon(Icons.camera_alt),
+            ),
+          ),
+
+
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 16.0),
+          //   child: FloatingActionButton(
+          //     backgroundColor: Colors.red,
+          //     onPressed: () {
+          //       //isVideo = true;
+          //       _onImageButtonPressed(ImageSource.gallery);
+          //     },
+          //     heroTag: 'video0',
+          //     tooltip: 'Pick Video from gallery',
+          //     child: const Icon(Icons.video_library),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(top: 16.0),
+          //   child: FloatingActionButton(
+          //     backgroundColor: Colors.red,
+          //     onPressed: () {
+          //       //isVideo = true;
+          //       _onImageButtonPressed(ImageSource.camera);
+          //     },
+          //     heroTag: 'video1',
+          //     tooltip: 'Take a Video',
+          //     child: const Icon(Icons.videocam),
+          //   ),
+          // ),
+        ],
       ),
     );
   }
@@ -227,8 +297,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
                 isHalfAllowed: true,
                 filledColor: Colors.green,
                 emptyColor: Colors.redAccent,
-                halfFilledColor: Colors.amberAccent, 
+                halfFilledColor: Colors.amberAccent,
               ),
+              SizedBox(
+                height: 20,
+              ),
+              _previewImage(),
               CommonButton(
                 title: widget.newAddress ? "Add" : "Edit",
                 titleColor: AppColors.white,
@@ -258,8 +332,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
     return true;
   }
 
-  void onButtonTap() {
+  void onButtonTap() async {
     if (_formKey.currentState.validate()) {
+      await uploadFile();
+
+      print("save product");
+      print(_uploadedFileURL);
       addProductCubit.saveData(
           nameEditingController.text,
           productDescriptionEditingController.text,
@@ -267,7 +345,154 @@ class _AddProductScreenState extends State<AddProductScreen> {
           int.parse(currentPriceEditingController.text),
           int.parse(actualPriceEditingController.text),
           _ratingStar,
+          _uploadedFileURL,
           isEdit: widget.newAddress);
     }
   }
+
+  Text _getRetrieveErrorWidget() {
+    if (_retrieveDataError != null) {
+      final Text result = Text(_retrieveDataError);
+      _retrieveDataError = null;
+      return result;
+    }
+    return null;
+  }
+
+  Widget _previewImage() {
+    final Text retrieveError = _getRetrieveErrorWidget();
+    if (retrieveError != null) {
+      return retrieveError;
+    }
+    if (_imageFile != null) {
+      if (false) {
+        // Why network?
+        // See https://pub.dev/packages/image_picker#getting-ready-for-the-web-platform
+        return Image.network(_imageFile.path);
+      } else {
+        return Image.file(File(_imageFile.path));
+      }
+    } else if (_pickImageError != null) {
+      return Text(
+        'Pick image error: $_pickImageError',
+        textAlign: TextAlign.center,
+      );
+    } else {
+      return const Text(
+        'You have not yet picked an image.',
+        textAlign: TextAlign.center,
+      );
+    }
+  }
+
+  void _onImageButtonPressed(ImageSource source, {BuildContext context}) async {
+    // if (_controller != null) {
+    //   await _controller.setVolume(0.0);
+    // }
+    if (false) {
+      final PickedFile file = await _picker.getVideo(
+          source: source, maxDuration: const Duration(seconds: 10));
+      //await _playVideo(file);
+    } else {
+      await _displayPickImageDialog(context,
+          (double maxWidth, double maxHeight, int quality) async {
+        try {
+
+         // var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+          final pickedFile = await _picker.getImage(
+            source: source,
+            maxWidth: maxWidth,
+            maxHeight: maxHeight,
+            imageQuality: quality,
+          );
+          
+          setState(() {
+            _imageFile = pickedFile;
+          });
+        } catch (e) {
+          setState(() {
+            _pickImageError = e;
+          });
+        }
+      });
+    }
+  }
+
+  Future<void> _displayPickImageDialog(
+      BuildContext context, OnPickImageCallback onPick) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Add optional parameters'),
+            content: Column(
+              children: <Widget>[
+                TextField(
+                  controller: maxWidthController,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  decoration:
+                      InputDecoration(hintText: "Enter maxWidth if desired"),
+                ),
+                TextField(
+                  controller: maxHeightController,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
+                  decoration:
+                      InputDecoration(hintText: "Enter maxHeight if desired"),
+                ),
+                TextField(
+                  controller: qualityController,
+                  keyboardType: TextInputType.number,
+                  decoration:
+                      InputDecoration(hintText: "Enter quality if desired"),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: const Text('CANCEL'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                  child: const Text('PICK'),
+                  onPressed: () {
+                    double width = maxWidthController.text.isNotEmpty
+                        ? double.parse(maxWidthController.text)
+                        : null;
+                    double height = maxHeightController.text.isNotEmpty
+                        ? double.parse(maxHeightController.text)
+                        : null;
+                    int quality = qualityController.text.isNotEmpty
+                        ? int.parse(qualityController.text)
+                        : null;
+                    onPick(width, height, quality);
+                    Navigator.of(context).pop();
+                  }),
+            ],
+          );
+        });
+  }
+
+  Future uploadFile() async {
+    print('Before File Upload');
+    File tmpFile = File(_imageFile.path);
+    StorageReference storageReference = FirebaseStorage.instance
+        .ref()
+        .child('Products/${Path.basename(tmpFile.path)}}');
+    StorageUploadTask uploadTask = storageReference.putFile(tmpFile);
+    await uploadTask.onComplete;
+    print('File Uploaded');
+    await storageReference.getDownloadURL().then((fileURL) {
+      print("fileURL");
+      print(fileURL);
+      setState(() {
+        _uploadedFileURL = fileURL;
+      });
+    });
+  }
 }
+
+typedef void OnPickImageCallback(
+    double maxWidth, double maxHeight, int quality);

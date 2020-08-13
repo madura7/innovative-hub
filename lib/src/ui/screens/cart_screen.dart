@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttercommerce/src/bloc/payment/payment.dart';
 import 'package:fluttercommerce/src/bloc/place_order/place_order_cubit.dart';
 import 'package:fluttercommerce/src/bloc/place_order/place_order_state.dart';
+import 'package:fluttercommerce/src/core/utils/validator.dart';
 import 'package:fluttercommerce/src/di/app_injector.dart';
 import 'package:fluttercommerce/src/notifiers/account_provider.dart';
 import 'package:fluttercommerce/src/notifiers/cart_status_provider.dart';
@@ -14,6 +15,7 @@ import 'package:fluttercommerce/src/routes/router.gr.dart';
 import 'package:fluttercommerce/src/ui/common/PaypalPayment.dart';
 import 'package:fluttercommerce/src/ui/common/action_text.dart';
 import 'package:fluttercommerce/src/ui/common/cart_item_card.dart';
+import 'package:fluttercommerce/src/ui/common/commom_text_field.dart';
 import 'package:fluttercommerce/src/ui/common/common_button.dart';
 import 'package:fluttercommerce/src/ui/common/common_card.dart';
 import 'package:fluttercommerce/src/ui/screens/base_screen_mixin.dart';
@@ -26,10 +28,26 @@ class CartScreen extends StatefulWidget {
 class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
   var paymentCubit = AppInjector.get<PaymentCubit>();
   var placeOrderCubit = AppInjector.get<PlaceOrderCubit>();
+  TextEditingController couponController = TextEditingController();
+  Validator validator = Validator();
+  double couponAppliedValue = 0;
 
   @override
   void initState() {
     super.initState();
+    couponController.addListener(() {
+      print(couponController.text);
+      if(couponController.text == "abcd"){
+        print("applied");
+        setState(() {
+          couponAppliedValue = 100;
+        });
+      }else{
+        print("not applied");
+      }
+
+
+    });
   }
 
   @override
@@ -81,7 +99,11 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
               SizedBox(
                 height: 50,
               ),
-              applyCoupon(),
+              // applyCoupon(),
+              // SizedBox(
+              //   height: 50,
+              // ),
+              apply(),
               SizedBox(
                 height: 50,
               ),
@@ -95,7 +117,7 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
   Widget applyCoupon() {
     return CommonCard(
         child: Container(
-      margin: EdgeInsets.only(left: 20, right: 14, top: 17, bottom: 17),
+      margin: EdgeInsets.only(left: 20, right: 14, top: 17, bottom: 30),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -111,17 +133,40 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
               Text(StringsConstants.applyCoupon),
             ],
           ),
-          Icon(
-            Icons.keyboard_arrow_right,
-            color: AppColors.color81819A,
-          )
+          IconButton(
+              icon: Icon(Icons.keyboard_arrow_right),
+              color: AppColors.color81819A,
+              onPressed: (() => {
+                    print("Apply Coupon"),
+                  })),
+          
         ],
       ),
     ));
   }
 
+
+  Widget apply() {
+    return CommonCard(
+        child: Container(
+          
+          child: CustomTextField(
+            fillColor: Colors.white,
+                textEditingController: couponController,
+                hint: StringsConstants.applyCoupon,
+                validator: validator.validateName,
+                keyboardType: TextInputType.text,
+              ),
+          
+        
+        ));
+  }
+
+
+
   Widget billDetails(CartStatusProvider cartItemStatus) {
     Widget priceRow(String title, String price, {bool isFinal = false}) {
+      
       return Column(
         children: [
           Row(
@@ -177,8 +222,9 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
 //          priceRow(
 //              StringsConstants.taxAndCharges, "${cartItemStatus.currency}900"),
           priceRow(StringsConstants.toPay,
-              "${cartItemStatus.currency}${cartItemStatus.priceInCart}",
+              "${cartItemStatus.currency} " " ${ cartItemStatus.priceInCart - couponAppliedValue }",
               isFinal: true),
+              
         ],
       ),
     ));
@@ -249,7 +295,8 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "${cartItemStatus.currency} ${cartItemStatus.priceInCart}",
+                      "${cartItemStatus.currency} "
+                      "${cartItemStatus.priceInCart - couponAppliedValue}",
                       style: AppTextStyles.medium15Black,
                     ),
                     ActionText(StringsConstants.viewDetailedBillCaps)
@@ -298,19 +345,17 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
                     onTap: () {
                       var addressProvider = AppInjector.get<AccountProvider>();
 
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => PaypalPayment(
-                              onFinish: (number) async {
-                                // payment done
-                                print('order id: '+number);
-                              },
-                            ),
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) => PaypalPayment(
+                            onFinish: (number) async {
+                              // payment done
+                              print('order id: ' + number);
+                            },
                           ),
-                        );
+                        ),
+                      );
 
-
-                     
                       // if (addressProvider.addressSelected != null) {
                       //   paymentCubit.openCheckout(cartItemStatus.priceInCart);
                       // } else {

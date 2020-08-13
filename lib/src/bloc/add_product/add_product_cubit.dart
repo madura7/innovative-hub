@@ -20,6 +20,7 @@ class AddProductCubit extends Cubit<AddProductState> {
 
   saveData(String name, String description,
     String currency, num currentPrice, num actualPrice, double ratingStar,
+    String uploadedFileURL,
     {bool isEdit = false}) async {
       print("saveData");
     if (isEdit) {
@@ -31,10 +32,11 @@ class AddProductCubit extends Cubit<AddProductState> {
     _productModel.currency = currency;
     _productModel.currentPrice = currentPrice;
     _productModel.actualPrice = actualPrice;
-    _productModel.image = "https://i5.walmartimages.ca/images/Large/094/514/6000200094514.jpg";
+    _productModel.image = uploadedFileURL;
     _productModel.categories = ["top_products"];
     _productModel.dealOfTheDay = true;
     _productModel.ratingStar = ratingStar;
+    _productModel.productId = name;
 
     print(_productModel);
     emit(AddProductState.saveDataLoading());
