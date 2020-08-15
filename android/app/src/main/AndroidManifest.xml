@@ -7,8 +7,8 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="fluttercommerce"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Innovative Hub"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name="com.max.fluttercommerce.MainActivity"
             android:launchMode="singleTop"

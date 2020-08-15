@@ -12,6 +12,8 @@ import 'package:fluttercommerce/src/di/app_injector.dart';
 import 'package:fluttercommerce/src/notifiers/account_provider.dart';
 import 'package:fluttercommerce/src/notifiers/cart_status_provider.dart';
 import 'package:fluttercommerce/src/repository/firestore_repository.dart';
+import 'package:fluttercommerce/src/res/email_settings.dart';
+
 
 class SendEmailCubit extends Cubit<SendEmailState> {
   var firebaseRepo = AppInjector.get<FirestoreRepository>();
@@ -24,33 +26,23 @@ class SendEmailCubit extends Cubit<SendEmailState> {
   sendEmail(CartStatusProvider cartItemStatus) async {
     if (await ConnectionStatus.getInstance().checkConnection()) {
       try {
-        print("email send before");
-        // await emailService.send("email", "cartItemStatus.", "subject",
-        //     "madura12a@gmail.com", "attachmentPaths", false);
-
-        var _count = cartItemStatus.cartItems.length;
-
-
-        var document = parse(
-            '<body>Hello world! <a href="www.html5rocks.com">HTML5 rocks!');
-        print(document.outerHtml);
 
         await _authRepo.firebaseAuth.currentUser().then((value) {
           var options = new GmailSmtpOptions()
-            ..username = 'dev.codemax@gmail.com'
-            ..password = 'CodeMax@9517';
+            ..username = EmailSettings.email
+            ..password = EmailSettings.password;
 
           var emailTransport = new SmtpTransport(options);
 
           var envelope = new Envelope()
-            ..from = 'dev.codemax@gmail.com'
+            ..from = EmailSettings.email
             ..recipients.add(value.email)
             //..bccRecipients.add('hidden@recipient.com')
             ..subject = 'Innovative Hub Invoice'
             //..attachments.add(new Attachment(file: new File('path/to/file')))
-            ..text = 'Innovative Hub Invoice T'
+            ..text = 'Innovative Hub Invoice !!'
             //..html = '<h1>Test</h1><p>Hey!</p>';
-            ..html = 'System Generated Email';
+            ..html = "Total Amount : ${cartItemStatus.priceInCart}";
 
           // Email it.
           emailTransport

@@ -65,6 +65,11 @@ class _AddProductScreenState extends State<AddProductScreen> {
     nameEditingController.addListener(() {
       print(nameEditingController.text);
     });
+    setState(() {
+      maxWidthController.text = "100";
+      maxHeightController.text = "100";
+      qualityController.text = "100";
+    });
   }
 
   @override
@@ -158,7 +163,6 @@ class _AddProductScreenState extends State<AddProductScreen> {
               child: const Icon(Icons.camera_alt),
             ),
           ),
-
 
           // Padding(
           //   padding: const EdgeInsets.only(top: 16.0),
@@ -334,19 +338,22 @@ class _AddProductScreenState extends State<AddProductScreen> {
 
   void onButtonTap() async {
     if (_formKey.currentState.validate()) {
-      await uploadFile();
-
-      print("save product");
-      print(_uploadedFileURL);
-      addProductCubit.saveData(
-          nameEditingController.text,
-          productDescriptionEditingController.text,
-          currencyEditingController.text,
-          int.parse(currentPriceEditingController.text),
-          int.parse(actualPriceEditingController.text),
-          _ratingStar,
-          _uploadedFileURL,
-          isEdit: widget.newAddress);
+      if (_imageFile != null) {
+        await uploadFile();
+        print("save product");
+        print(_uploadedFileURL);
+        addProductCubit.saveData(
+            nameEditingController.text,
+            productDescriptionEditingController.text,
+            currencyEditingController.text,
+            int.parse(currentPriceEditingController.text),
+            int.parse(actualPriceEditingController.text),
+            _ratingStar,
+            _uploadedFileURL,
+            isEdit: widget.newAddress);
+      }else{
+        print("Please Select Image");
+      }
     }
   }
 
@@ -394,11 +401,12 @@ class _AddProductScreenState extends State<AddProductScreen> {
           source: source, maxDuration: const Duration(seconds: 10));
       //await _playVideo(file);
     } else {
+      // await _displayPickImageDialog(context,
+      //     (double maxWidth, double maxHeight, int quality) async {
       await _displayPickImageDialog(context,
           (double maxWidth, double maxHeight, int quality) async {
         try {
-
-         // var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+          // var image = await ImagePicker.pickImage(source: ImageSource.gallery);
 
           final pickedFile = await _picker.getImage(
             source: source,
@@ -406,7 +414,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
             maxHeight: maxHeight,
             imageQuality: quality,
           );
-          
+
           setState(() {
             _imageFile = pickedFile;
           });
@@ -425,7 +433,7 @@ class _AddProductScreenState extends State<AddProductScreen> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('Add optional parameters'),
+            title: Text('Pick an image'),
             content: Column(
               children: <Widget>[
                 TextField(
@@ -433,18 +441,21 @@ class _AddProductScreenState extends State<AddProductScreen> {
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration:
                       InputDecoration(hintText: "Enter maxWidth if desired"),
+                  enabled: false,
                 ),
                 TextField(
                   controller: maxHeightController,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration:
                       InputDecoration(hintText: "Enter maxHeight if desired"),
+                  enabled: false,
                 ),
                 TextField(
                   controller: qualityController,
                   keyboardType: TextInputType.number,
                   decoration:
                       InputDecoration(hintText: "Enter quality if desired"),
+                  enabled: false,
                 ),
               ],
             ),

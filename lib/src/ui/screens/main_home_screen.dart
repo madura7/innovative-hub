@@ -30,6 +30,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   var authRepo = AppInjector.get<AuthRepository>();
   var cartStatusProvider = AppInjector.get<CartStatusProvider>();
   var accountProvider = AppInjector.get<AccountProvider>();
+  String _userRole = "";
   @override
   void initState() {
     super.initState();
@@ -60,6 +61,7 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
 
       print("User Role");
       print(accountDetails.userRole);
+      _userRole = accountDetails.userRole;
 
       Address address;
       List.generate(accountDetails.addresses.length, (index) {
@@ -82,77 +84,140 @@ class _MainHomeScreenState extends State<MainHomeScreen> {
   Widget build(BuildContext context) {
     return ProviderNotifier<MainScreenProvider>(
       child: (MainScreenProvider mainScreenProvider) {
-
-        if(true){
-
-        }
-
-        return Scaffold(
-          body: [
-            HomePageScreen(),
-            SearchItemScreen(),
-            CartScreen(),
-            AccountScreen(),
-            AddProductScreen(true),
-
-          ][mainScreenProvider.bottomBarIndex],
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            //  backgroundColor: AppColors.primaryColor,
-            unselectedItemColor: AppColors.color81819A,
-            selectedItemColor: AppColors.primaryColor,
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
-            items: [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home), title: Text(StringsConstants.home)),
-              
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.search),
-                  title: Text(StringsConstants.search)),
-              
-              BottomNavigationBarItem(
-                  icon: Stack(
-                    children: <Widget>[
-                      Center(child: Icon(Icons.shopping_cart)),
-                      ProviderNotifier<CartStatusProvider>(
-                        child: (CartStatusProvider value) {
-                          return Visibility(
-                            visible: value.noOfItemsInCart > 0,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 20),
-                              child: Align(
-                                alignment: Alignment.center,
-                                child: CircleAvatar(
-                                  minRadius: 7,
-                                  maxRadius: 7,
-                                  backgroundColor: AppColors.color6EBA49,
-                                  child: Text(
-                                    "${value.noOfItemsInCart}",
-                                    style: AppTextStyles.normal9White,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        },
-                      )
-                    ],
-                  ),
-                  title: Text(StringsConstants.cart)),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person),
-                  title: Text(StringsConstants.account)),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.add), title: Text(StringsConstants.add)),
-            ],
-            onTap: (index) { 
-              mainScreenProvider.bottomBarIndex = index;
-            },
-            currentIndex: mainScreenProvider.bottomBarIndex,
-          ),
-        );
+        return getUserRoleBasedUI(mainScreenProvider);
       },
     );
   }
+
+  getUserRoleBasedUI(MainScreenProvider mainScreenProvider) {
+    var userRole = _userRole; //accountProvider.accountDetails.userRole;
+    if (userRole == "Admin") {
+      return Scaffold(
+        body: [
+          HomePageScreen(),
+          SearchItemScreen(),
+          AccountScreen(),
+          AddProductScreen(true),
+        ][mainScreenProvider.bottomBarIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          //  backgroundColor: AppColors.primaryColor,
+          unselectedItemColor: AppColors.color81819A,
+          selectedItemColor: AppColors.primaryColor,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home), title: Text(StringsConstants.home)),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.search), title: Text(StringsConstants.search)),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                title: Text(StringsConstants.account)),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.add), title: Text(StringsConstants.add)),
+          
+          ],
+          onTap: (index) {
+            mainScreenProvider.bottomBarIndex = index;
+          },
+          currentIndex: mainScreenProvider.bottomBarIndex,
+        ),
+      );
+    } else if (userRole == "Buyer") {
+      return Scaffold(
+        body: [
+          HomePageScreen(),
+          SearchItemScreen(),
+          CartScreen(),
+          AccountScreen(),
+        ][mainScreenProvider.bottomBarIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          //  backgroundColor: AppColors.primaryColor,
+          unselectedItemColor: AppColors.color81819A,
+          selectedItemColor: AppColors.primaryColor,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home), title: Text(StringsConstants.home)),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.search), title: Text(StringsConstants.search)),
+            BottomNavigationBarItem(
+                icon: Stack(
+                  children: <Widget>[
+                    Center(child: Icon(Icons.shopping_cart)),
+                    ProviderNotifier<CartStatusProvider>(
+                      child: (CartStatusProvider value) {
+                        return Visibility(
+                          visible: value.noOfItemsInCart > 0,
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: CircleAvatar(
+                                minRadius: 7,
+                                maxRadius: 7,
+                                backgroundColor: AppColors.color6EBA49,
+                                child: Text(
+                                  "${value.noOfItemsInCart}",
+                                  style: AppTextStyles.normal9White,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                  ],
+                ),
+                title: Text(StringsConstants.cart)),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                title: Text(StringsConstants.account)),
+          ],
+          onTap: (index) {
+            mainScreenProvider.bottomBarIndex = index;
+          },
+          currentIndex: mainScreenProvider.bottomBarIndex,
+        ),
+      );
+    } else {
+      return Scaffold(
+        body: [
+          HomePageScreen(),
+          SearchItemScreen(),
+          AccountScreen(),
+          AddProductScreen(true),
+        ][mainScreenProvider.bottomBarIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          //  backgroundColor: AppColors.primaryColor,
+          unselectedItemColor: AppColors.color81819A,
+          selectedItemColor: AppColors.primaryColor,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.home), title: Text(StringsConstants.home)),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.search), title: Text(StringsConstants.search)),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                title: Text(StringsConstants.account)),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.add), title: Text(StringsConstants.add)),
+          
+          ],
+          onTap: (index) {
+            mainScreenProvider.bottomBarIndex = index;
+          },
+          currentIndex: mainScreenProvider.bottomBarIndex,
+        ),
+      );
+    }
+  }
+
+  void checkUserRole() async {}
 }

@@ -46,10 +46,14 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
     couponController.addListener(() {
       print(couponController.text);
       if (couponController.text.toUpperCase() ==
-          StringsConstants.staticCouponCode.toUpperCase()) {
+          StringsConstants.staticCouponCode1.toUpperCase() || 
+          couponController.text.toUpperCase() ==
+          StringsConstants.staticCouponCode2.toUpperCase() || 
+          couponController.text.toUpperCase() ==
+          StringsConstants.staticCouponCode3.toUpperCase()) {
         print("applied");
         setState(() {
-          couponAppliedValue = 100;
+          couponAppliedValue = 0.9; //HARDCODED VALUE FOR COUPON 10%
           couponAppliedStatus = true;
         });
       } else {
@@ -232,7 +236,7 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
           priceRow(
               StringsConstants.toPay,
               "${cartItemStatus.currency} "
-              " ${cartItemStatus.priceInCart - couponAppliedValue}",
+              " ${cartItemStatus.priceInCart * (couponAppliedStatus ? couponAppliedValue : 1)}",
               isFinal: true),
         ],
       ),
@@ -305,7 +309,7 @@ class _CartScreenState extends State<CartScreen> with BaseScreenMixin {
                   children: [
                     Text(
                       "${cartItemStatus.currency} "
-                      "${cartItemStatus.priceInCart - couponAppliedValue}",
+                      "${cartItemStatus.priceInCart * (couponAppliedStatus ? couponAppliedValue : 1)}",
                       style: AppTextStyles.medium15Black,
                     ),
                     ActionText(

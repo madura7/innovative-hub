@@ -98,7 +98,9 @@ static const loginText =
 
 
   //Constants
-  static const staticCouponCode = "c001";
+  static const staticCouponCode1 = "c001";
+  static const staticCouponCode2 = "c002";
+  static const staticCouponCode3 = "c003";
   static const couponAppliedMsg = "Coupon Applied";
 
 }
